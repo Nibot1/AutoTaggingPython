@@ -13,6 +13,7 @@
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
+        <option value="Tobin Rosenau &lt;tobin.rosenau@mailbox.org&gt;" />
         <option value="tobin.rosenau@mailbox.org" />
         <option value="to" />
         <option value="Tobin Rosenau" />
@@ -102,34 +103,38 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="507" y="9" key="#main/0.0.1536.824@0.0.1536.824" timestamp="1585427284009" />
-    <state x="502" y="0" key="CommitChangelistDialog2" timestamp="1585426822966">
+    <state x="502" y="0" key="CommitChangelistDialog2" timestamp="1585432240129">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="502" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1585426822966" />
+    <state x="502" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1585432240129" />
     <state x="645" y="212" key="FileChooserDialogImpl" timestamp="1585430429032">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="645" y="212" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1585430429032" />
-    <state width="1515" height="210" key="GridCell.Tab.0.bottom" timestamp="1585431510491">
+    <state width="1515" height="210" key="GridCell.Tab.0.bottom" timestamp="1585432275252">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585431510491" />
-    <state width="1515" height="210" key="GridCell.Tab.0.center" timestamp="1585431510491">
+    <state width="1515" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585432275252" />
+    <state width="1515" height="210" key="GridCell.Tab.0.center" timestamp="1585432275252">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1585431510491" />
-    <state width="1515" height="210" key="GridCell.Tab.0.left" timestamp="1585431510491">
+    <state width="1515" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1585432275252" />
+    <state width="1515" height="210" key="GridCell.Tab.0.left" timestamp="1585432275252">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1585431510491" />
-    <state width="1515" height="210" key="GridCell.Tab.0.right" timestamp="1585431510491">
+    <state width="1515" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1585432275252" />
+    <state width="1515" height="210" key="GridCell.Tab.0.right" timestamp="1585432275252">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1585431510491" />
+    <state width="1515" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1585432275252" />
     <state x="277" y="54" key="SettingsEditor" timestamp="1585430926770">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="277" y="54" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1585430926770" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1585432244243">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1585432244243" />
     <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1585428224355">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
