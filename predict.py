@@ -5,52 +5,79 @@ from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from collections import defaultdict
 from nltk.corpus import wordnet as wn
-from sklearn.feature_extraction.text import TfidfVectorizer
 import joblib
-import nltk
+import sys
+import argparse
+# import nltk
 import os
 
-nltk.download('punkt')
-nltk.download('wordnet')
-nltk.download('averaged_perceptron_tagger')
-nltk.download('stopwords')
+# nltk.download('punkt')
+# nltk.download('wordnet')
+# nltk.download('averaged_perceptron_tagger')
+# nltk.download('stopwords')
 
 np.random.seed(500)
-text = " The best soundtrack ever to anything.: I'm reading a lot of reviews saying that this is the best 'game soundtrack' and I figured that I'd write a review to disagree a bit. This in my opinino is Yasunori Mitsuda's ultimate masterpiece. The music is timeless and I'm been listening to it for years now and its beauty simply refuses to fade.The price tag on this is pretty staggering I must say, but if you are going to buy any cd for this much money, this is the only one that I feel would be worth every penny."
-# Step - a : Remove blank rows if any.
-text = os.linesep.join([s for s in text.splitlines() if s])
-# Step - b : Change all the text to lower case. This is required as python interprets 'dog' and 'DOG' differently
-text = text.lower()
-# Step - c : Tokenization : In this each entry in the corpus will be broken into set of words
-text = word_tokenize(text)
-# Step - d : Remove Stop words, Non-Numeric and perfom Word Stemming/Lemmenting.# WordNetLemmatizer requires Pos tags
-# to understand if the word is noun or verb or adjective etc. By default it is set to Noun
-tag_map = defaultdict(lambda: wn.NOUN)
-tag_map['J'] = wn.ADJ
-tag_map['V'] = wn.VERB
-tag_map['R'] = wn.ADV
 
-# Declaring Empty List to store the words that follow the rules for this step
-Final_words = []
-# Initializing WordNetLemmatizer()
-word_Lemmatized = WordNetLemmatizer()
-# pos_tag function below will provide the 'tag' i.e if the word is Noun(N) or Verb(V) or something else.
-for word, tag in pos_tag(text):
-    # Below condition is to check for Stop words and consider only alphabets
-    if word not in stopwords.words('english') and word.isalpha():
-        word_Final = word_Lemmatized.lemmatize(word, tag_map[tag[0]])
-        Final_words.append(word_Final)
 
-# The final processed set of words for each iteration will be stored in 'text_final'
-text = str(Final_words)
+def preprocess_text(text):
+    # Step - a : Remove blank rows if any.
+    text = os.linesep.join([s for s in text.splitlines() if s])
+    # Step - b : Change all the text to lower case. This is required as python interprets 'dog' and 'DOG' differently
+    text = text.lower()
+    # Step - c : Tokenization : In this each entry in the corpus will be broken into set of words
+    text = word_tokenize(text)
+    # Step - d : Remove Stop words, Non-Numeric and perfom Word Stemming/Lemmenting.# WordNetLemmatizer requires
+    # Postags to understand if the word is noun or verb or adjective etc. By default it is set to Noun
+    tag_map = defaultdict(lambda: wn.NOUN)
+    tag_map['J'] = wn.ADJ
+    tag_map['V'] = wn.VERB
+    tag_map['R'] = wn.ADV
 
-Tfidf_vect = joblib.load("tfidf_vectorizer.sav")
-Predict_X_Tfidf = Tfidf_vect.transform([text])
+    # Declaring Empty List to store the words that follow the rules for this step
+    final_words = []
+    # Initializing WordNetLemmatizer()
+    word_lemmatized = WordNetLemmatizer()
+    # pos_tag function below will provide the 'tag' i.e if the word is Noun(N) or Verb(V) or something else.
+    for word, tag in pos_tag(text):
+        # Below condition is to check for Stop words and consider only alphabets
+        if word not in stopwords.words('english') and word.isalpha():
+            word_final = word_lemmatized.lemmatize(word, tag_map[tag[0]])
+            final_words.append(word_final)
 
-# load the model from disk
-loaded_model = joblib.load("finalized_model_svm.sav")
-result = loaded_model.predict(Predict_X_Tfidf)
-print(result)
+    # The final processed set of words for each iteration will be stored in 'text_final'
+    text = str(final_words)
+    return text
 
-labelEncoder = joblib.load("label_encoder.sav")
-print(labelEncoder.inverse_transform(result))
+
+def main(argv):
+    parser = argparse.ArgumentParser(description='Predict text category')
+    parser.add_argument('-m', action='store', default='finalized_model_svm.sav', dest='model',
+                        help='filepath to finalized model', nargs='?')
+    parser.add_argument('-v', action='store', default='tfidf_vectorizer.sav', dest='vectorizer',
+                        help='filepath to tfidf vectorizer', nargs='?')
+    parser.add_argument('-e', action='store', default='label_encoder.sav', dest='encoder',
+                        help='filepath to label encoder', nargs='?')
+    parser.add_argument('-i', action='store', dest='input', help='input text to categorize', default=None, nargs='*')
+
+    args = parser.parse_args(argv)
+    finalised_model_filename = args.model
+    tfidf_vectorizer_filename = args.vectorizer
+    label_encoder_filename = args.encoder
+    input_text = args.input
+
+    for comment in input_text:
+        preprocessed_text = preprocess_text(comment)
+        tfidf_vect = joblib.load(tfidf_vectorizer_filename)
+        predict_x_tfidf = tfidf_vect.transform([preprocessed_text])
+
+        # load the model from disk
+        loaded_model = joblib.load(finalised_model_filename)
+        result = loaded_model.predict(predict_x_tfidf)
+        # print(result)
+
+        label_encoder = joblib.load(label_encoder_filename)
+        print(label_encoder.inverse_transform(result)[0])
+
+
+if __name__ == "__main__":
+    main(sys.argv[1:])
